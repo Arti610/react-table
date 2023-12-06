@@ -1,36 +1,27 @@
-import React, { useMemo ,useState} from 'react'
-import { useTable, useSortBy, useFilters, useGlobalFilter } from 'react-table'
-import MOCK_DATA from './MOCK_DATA.json'
-import { COLUMNS } from './columns'
-import './table.css'
-import { Checkbox } from './Checkbox'
-import { GlobalFilter } from './GlobalFilter'
+import React, { useMemo, useState } from "react";
+import { useTable, useSortBy, useFilters, useGlobalFilter } from "react-table";
+import MOCK_DATA from "./MOCK_DATA.json";
+import { COLUMNS } from "./columns";
+import "./table.css";
+import { Checkbox } from "./Checkbox";
+import { GlobalFilter } from "./GlobalFilter";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { TfiImport } from "react-icons/tfi";
+import { IoMdAdd } from "react-icons/io";
+import { FaEdit } from "react-icons/fa";
+import {MdDelete} from 'react-icons/md'
 
 export const BasicTable = () => {
-
-  const [dateValue, setDateValue] = useState('');
+  const [dateValue, setDateValue] = useState("");
 
   const handleInputChange = (event) => {
     const inputDate = event.target.value;
-    console.log(inputDate,"hkgkjghg")
-    // const convertedDate = new Date(inputDate);
     const convertedDate = inputDate;
     setDateValue(convertedDate);
   };
 
-
-
-
-  const columns = useMemo(() => COLUMNS, [])
-  const data = useMemo(() => MOCK_DATA, [])
-
-
-  // const defaultColumn = React.useMemo(
-  //   () => ({
-  //     Filter: ColumnFilter
-  //   }),
-  //   []
-  // )
+  const columns = useMemo(() => COLUMNS, []);
+  const data = useMemo(() => MOCK_DATA, []);
 
   const {
     getTableProps,
@@ -43,82 +34,169 @@ export const BasicTable = () => {
     setGlobalFilter,
     allColumns,
     getToggleHideAllColumnsProps,
-
-  } = useTable({
-    data,
-    columns,
-
-  },
-    useGlobalFilter,
-
-  )
-  const { globalFilter } = state
+  } = useTable(
+    {
+      data,
+      columns,
+    },
+    useGlobalFilter
+  );
+  const { globalFilter } = state;
   return (
     <>
-
-<div>
-      <input
-        type="datetime-local"
-        // value={"2024-06-23T16:45"}
-        value={"2023-06-30T12:44:00Z"}
-        onChange={handleInputChange}
-      />
-    </div>
-
-      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-      <div className='Main-div'>
-
-        <details>
-          <summary>Filter Columns</summary>
-          <div className='Header-column'>
-            <div>
-              <Checkbox {...getToggleHideAllColumnsProps()} /> Toggle All
+      <div className="Main-div">
+        <div className="table-header">
+          <div className="table-bredcrum">Bredcrum</div>
+          <div className="table-headings">
+            <div className="table-content">
+              <p>Currency</p>
+              <span>
+                Lorem ipsum dolor set amet is a dummy text used here for
+                description
+              </span>
             </div>
-            {allColumns.map(column => (
-              <div key={column.id}>
-                <label>
-                  <input type='checkbox' {...column.getToggleHiddenProps()} />{' '}
-                  {column.Header}
-                </label>
+            <div className="table-buttons">
+              <div className="buttons-container">
+                <button className="exportBtn">
+                  <TfiImport />
+                  &nbsp;Export
+                </button>
+                <button className="addBtn">
+                  <IoMdAdd />
+                  &nbsp;Add
+                </button>
               </div>
-            ))}
-            <br />
+            </div>
           </div>
-        </details>
+        </div>
 
-        <table {...getTableProps()}>
-          <thead>
-            {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                  <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
-              prepareRow(row)
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map(cell => {
-                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+        <div className="table-wrapper">
+          <div className="table-functionalities">
+            <div className="search-control">
+              <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+            </div>
+            <div className="filter-date-control">
+              <div className="filter-date-inside">
+                <div className="date-control">
+                  <input
+                    type="datetime-local"
+                    value={"2023-06-30T12:44:00Z"}
+                    onChange={handleInputChange}
+                  />
+                </div>
+
+                <div className="filter-control">
+                  <details>
+                    <summary>Filter Columns</summary>
+                    <div className="Header-column">
+                      <div>
+                        <Checkbox {...getToggleHideAllColumnsProps()} /> Toggle
+                        All
+                      </div>
+                      {allColumns.map((column) => (
+                        <div key={column.id}>
+                          <label>
+                            <input
+                              type="checkbox"
+                              {...column.getToggleHiddenProps()}
+                            />{" "}
+                            {column.Header}
+                          </label>
+                        </div>
+                      ))}
+                      <br />
+                    </div>
+                  </details>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="table-datas">
+            <div className="table-wrapper-header">
+              <div className="table-wrapper-header-content">
+                <span>All Currencies</span>
+              </div>
+              <div className="table-wrapper-header-btn">
+                <BsThreeDotsVertical />
+              </div>
+            </div>
+            <div className="table-wrapper-body">
+              <table {...getTableProps()}>
+                <thead>
+                  {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map((column) => (
+                        <th {...column.getHeaderProps()}>
+                          {column.render("Header")}
+                        </th>
+                      ))}
+                      <th>Action</th>
+                    </tr>
+                  ))}
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                  {rows.map((row) => {
+                    prepareRow(row);
+                    return (
+                      <tr {...row.getRowProps()}>
+                        {row.cells.map((cell) => {
+                          return (
+                            <td {...cell.getCellProps()}>
+                              {cell.render("Cell")}
+                            </td>
+                          );
+                        })}
+                         <td>
+                        <div id="btn_action">
+                         
+                            <FaEdit
+                              color="#0e81b9"
+                              fontSize="17px"
+                              paddingInline="5px 15px"
+                              cursor="pointer"
+                              margin="5px"
+                              title="Edit Details"
+                              // onClick={() => {
+                              //   updateHandler(row.original.id);
+                              // }}
+                            />
+                                               
+                            <MdDelete
+                              color="#0e81b9"
+                              fontSize="18px"
+                              paddingInline="5px 10px"
+                              cursor="pointer"
+                              margin="5px"
+                              title="Delete "
+                              // onClick={() => {
+                              //   deleteHandler(row.original.id);
+                              // }}
+                            />
+                          
+                        </div>
+                      </td>
+                      </tr>
+                    );
                   })}
-                </tr>
-              )
-            })}
-          </tbody>
-          <tfoot>
-            {footerGroups.map(footerGroup => (
-              <tr {...footerGroup.getFooterGroupProps()}>
-                {footerGroup.headers.map(column => (
-                  <td {...column.getFooterProps()}>{column.render('Footer')}</td>
-                ))}
-              </tr>
-            ))}
-          </tfoot>
-        </table>
+                </tbody>
+                <tfoot>
+                  {footerGroups.map((footerGroup) => (
+                    <tr {...footerGroup.getFooterGroupProps()}>
+                      {footerGroup.headers.map((column) => (
+                        <td {...column.getFooterProps()}>
+                          {column.render("Footer")}
+                        </td>
+                      ))}
+                     
+                    </tr>
+                  ))}
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </>
-  )
-}
+  );
+};
