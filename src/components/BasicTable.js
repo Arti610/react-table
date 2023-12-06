@@ -10,6 +10,8 @@ import { TfiImport } from "react-icons/tfi";
 import { IoMdAdd } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
 import {MdDelete} from 'react-icons/md'
+import * as XLSX from "xlsx/xlsx";
+import { saveAs } from "file-saver";
 
 export const BasicTable = () => {
   const [dateValue, setDateValue] = useState("");
@@ -22,6 +24,29 @@ export const BasicTable = () => {
 
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
+
+    // THIS FUNCTION IS FOR DOWNLOAD THE EXCEL DATA FROM TABLE
+    const handleExport = () => {
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+      const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+      const blob = new Blob([excelBuffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      saveAs(blob, "data.xlsx");
+    };
+  
+  const createHandler = () =>{
+    alert("Create")
+  }
+  const updateHandler = (id) =>{
+    alert( `update data by id : ${id}`)
+  }
+  const deleteHandler = (id) =>{
+    alert( `delete data by id : ${id}`)
+  }
+
 
   const {
     getTableProps,
@@ -57,11 +82,11 @@ export const BasicTable = () => {
             </div>
             <div className="table-buttons">
               <div className="buttons-container">
-                <button className="exportBtn">
+                <button className="exportBtn" onClick={handleExport}>
                   <TfiImport />
                   &nbsp;Export
                 </button>
-                <button className="addBtn">
+                <button className="addBtn" onClick={createHandler}>
                   <IoMdAdd />
                   &nbsp;Add
                 </button>
@@ -157,9 +182,9 @@ export const BasicTable = () => {
                               cursor="pointer"
                               margin="5px"
                               title="Edit Details"
-                              // onClick={() => {
-                              //   updateHandler(row.original.id);
-                              // }}
+                              onClick={() => {
+                                updateHandler(row.original.id);
+                              }}
                             />
                                                
                             <MdDelete
@@ -169,9 +194,9 @@ export const BasicTable = () => {
                               cursor="pointer"
                               margin="5px"
                               title="Delete "
-                              // onClick={() => {
-                              //   deleteHandler(row.original.id);
-                              // }}
+                              onClick={() => {
+                                deleteHandler(row.original.id);
+                              }}
                             />
                           
                         </div>

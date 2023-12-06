@@ -1,7 +1,7 @@
 .table-wrapper {
-  width: 80%;
+  width: 95%;
   margin: auto;
-  margin-block: 3rem;
+  margin: 3rem 2rem;
   display: flex;
   gap: 3rem;
   flex-direction: column;
@@ -31,8 +31,20 @@
 }
 
 .date-control {
-  display: flex;
+  /* display: flex;
   padding: 0.625rem 1rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray-300, #d0d5dd);
+  background: var(--base-white, #fff);
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05); */
+}
+.date-control input {
+  border: none;
+  display: flex;
+  padding: 0.5rem;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
@@ -41,14 +53,10 @@
   background: var(--base-white, #fff);
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 }
-.date-control input{
-  border: none;
-  width: 100%;
-}
 
 .filter-control {
   display: flex;
-  padding: 0.625rem 1rem;
+  padding: 0.4rem 1rem;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
@@ -99,8 +107,10 @@
   align-items: flex-start;
   gap: 1.25rem;
   align-self: stretch;
-  width: 80%;
+  width: 95%;
   margin: auto;
+  margin: 3rem 2rem;
+  margin-block: 2rem;
 }
 
 .table-bredcrum {
@@ -161,7 +171,8 @@
 
 .exportBtn {
   display: flex;
-  padding: 0.625rem 1rem;
+  font-weight: bold;
+  padding: 0.525rem 1rem;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
@@ -174,6 +185,7 @@
 
 .addBtn {
   border-radius: 0.5rem;
+  font-weight: bold;
   border: 1px solid #0e81b9;
   background: #0e81b9;
   display: flex;
@@ -198,16 +210,16 @@ table th {
   border-top: 1px solid #ddd;
   padding: 8px;
   text-align: center;
-  padding-block: 0.8rem;
+  padding-block: 0.2rem;
 }
 
-table tr:nth-child(even) {
+/* table tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
 table tr:hover {
   background-color: #ddd;
-}
+} */
 
 table th,
 tfoot td {
@@ -231,7 +243,8 @@ tfoot td {
 /* Global Search @start */
 .global-search {
   display: flex;
-  padding: 0.625rem 0.875rem;
+  /* padding: 0.425rem 0.875rem; */
+  padding: 0.2rem 1rem;
   align-items: center;
   gap: 0.5rem;
   align-self: stretch;
@@ -250,15 +263,18 @@ tfoot td {
 .search-inside input {
   color: var(--gray-500, #667085);
   font-family: Inter;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5rem;
   border: none;
   width: 100%;
+  outline: none;
+  padding: 3px;
 }
 
 .search-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
+  color: #667085;
 }
