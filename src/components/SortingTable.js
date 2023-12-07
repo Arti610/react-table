@@ -66,6 +66,7 @@ export const SortingTable = () => {
           ))}
         </tfoot>
       </table>
+      
     </>
   )
 }
